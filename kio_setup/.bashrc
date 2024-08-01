@@ -43,9 +43,16 @@ alias vimplug="vi /home/kio/.config/nvim/lua/plugins.lua"
 alias vihm="vifm . ."
 alias sudo="sudo -E"
 alias hist-no-num="fc -l -n 1 | sed 's/^\s*//'"
+sslocal="/var/lib/snapd/snap/shadowsocks-rust/current/bin/sslocal"
+alias sslocal="$sslocal"
 alias sewan="sslocal -c /etc/shadowsocks-rust/config_rust1.json"
 #alias sw="sslocal -c /etc/shadowsocks-rust/config_rust1.json &> /dev/null &"
-alias paper="timeout 20m sslocal -c /etc/shadowsocks-rust/config_rust_papervpn.json &> /dev/null &" # &> /dev/null
+paper() {
+    PAPER_SERVER="https://ngaq2zsfl5.execute-api.eu-central-1.amazonaws.com/6480ad0caa/PgLaz9aOIfsoxvdQ4WN8wDEg4iDaZ4ZoCWyC6t1oEg#PaperVPN_europe"
+    #timeout 20m sslocal -b 127.0.0.1:1488 --server-url $(curl -X GET $PAPER_SERVER) &> /dev/null &
+    timeout 60m $sslocal -b 127.0.0.1:1488 --server-url $(curl -X GET $PAPER_SERVER) &> /dev/null &
+}
+export -f paper
 alias sw="paper"
 alias untgz="tar -xf $1 --one-top-level"
 alias tgz="tar -czvf $1.tar.gz $1"
